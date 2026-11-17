@@ -1,0 +1,18 @@
+flowchart TD
+    A[Pessoa se aproxima] --> B{PIR detectou movimento?}
+    B -- Não --> A
+    B -- Sim --> C[LCD exibe APERTE BOTAO]
+    C --> D[Botão inicia gravação]
+    D --> E[Microfone do computador capta fala]
+    E --> F[Botão encerra gravação]
+    F --> G[Vosk transcreve voz em texto]
+    G --> H[Classificador ML identifica categoria]
+    H --> I{Categoria aceitável?}
+    I -- Não --> X[LCD informa erro e permite refazer]
+    I -- Sim --> J[LCD mostra categoria]
+    J --> K{Botão confirma?}
+    K -- Não/tempo esgotado --> A
+    K -- Sim --> L[API FastAPI registra no SQLite local]
+    L --> M{Registro confirmado?}
+    M -- Não --> X
+    M -- Sim --> N[LCD confirma REGISTRADO e ID]

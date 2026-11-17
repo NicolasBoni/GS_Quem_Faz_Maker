@@ -1,0 +1,81 @@
+"""Amostras didaticas para classificar pedidos de servicos em portugues.
+
+IMPORTANTE: frases sinteticas criadas para o prototipo; nao sao dados reais de usuarios.
+"""
+
+EXEMPLOS = {
+    "HIDRAULICA": [
+        "minha torneira esta vazando agua", "preciso consertar um cano quebrado",
+        "a pia da cozinha esta entupida", "quero trocar o sifao do banheiro",
+        "o vaso sanitario esta entupido", "tem um vazamento de agua no teto",
+        "preciso de encanador para instalar uma pia", "o registro de agua quebrou",
+        "o chuveiro esta pingando sem parar", "quero trocar a torneira da cozinha",
+        "preciso arrumar a descarga do banheiro", "a caixa de agua esta vazando",
+        "estourou um cano no quintal", "quero desentupir o ralo da lavanderia",
+        "fazer instalacao de encanamento na casa", "preciso de reparo na tubulacao de agua",
+        "trocar boia da caixa de agua", "o tanque esta com vazamento",
+        "preciso de alguem para resolver infiltracao por cano", "consertar o vazamento da mangueira da maquina",
+    ],
+    "ELETRICA": [
+        "preciso instalar uma tomada na parede", "a luz do quarto nao acende",
+        "o disjuntor esta desarmando", "quero trocar a fiacao da casa",
+        "preciso de eletricista para arrumar interruptor", "instalar luminaria no teto",
+        "minha instalacao eletrica esta com curto", "trocar um chuveiro eletrico",
+        "preciso instalar um ventilador de teto", "o quadro de energia precisa de revisao",
+        "a tomada parou de funcionar", "instalar uma lampada de led",
+        "preciso arrumar problema de energia no quarto", "fazer manutencao eletrica da residencia",
+        "quero instalar um lustre", "substituir cabos eletricos antigos",
+        "a rede eletrica esta dando choque", "instalacao de tomadas novas",
+        "consertar interruptor de luz", "o fio da tomada queimou",
+    ],
+    "PINTURA": [
+        "quero pintar a parede da sala", "preciso de pintor para meu apartamento",
+        "pintar o muro externo", "fazer pintura do quarto",
+        "preciso retocar a tinta da cozinha", "pintura de fachada residencial",
+        "lixar e pintar uma parede", "quero pintar a garagem de branco",
+        "preciso pintar a porta de madeira", "passar massa corrida antes de pintar",
+        "renovar pintura do teto", "servico de pintura interna",
+        "quero pintar um portao", "pintar a casa inteira",
+        "preciso de profissional para aplicar tinta", "reformar parede descascada e pintar",
+        "pintura de parede com manchas", "pintor para ambiente comercial",
+        "trocar a cor das paredes", "pintar o corredor do predio",
+    ],
+    "LIMPEZA": [
+        "preciso de faxina na minha casa", "quero contratar uma diarista",
+        "limpar o apartamento depois da obra", "fazer limpeza pesada na cozinha",
+        "preciso lavar os vidros do escritorio", "limpeza de quintal e area externa",
+        "contratar servico de limpeza residencial", "quero limpar banheiro e cozinha",
+        "preciso de pessoa para fazer faxina", "limpeza de loja comercial",
+        "lavar piso e azulejos", "fazer higienizacao do ambiente",
+        "quero faxineira para hoje", "limpeza geral no fim da semana",
+        "tirar poeira dos moveis", "limpar casa antes da mudanca",
+        "preciso de limpeza pos obra", "servico de zeladoria e limpeza",
+        "lavar janelas e portas", "preciso de diarista para limpeza",
+    ],
+    "MONTAGEM": [
+        "montar guarda roupa novo", "preciso montar um armario de cozinha",
+        "quero montar uma mesa de escritorio", "montagem de cama de casal",
+        "preciso de montador de moveis", "desmontar uma estante antiga",
+        "montar uma escrivaninha", "instalar prateleira na parede",
+        "quero montar uma comoda", "montagem de rack de televisao",
+        "montar armario planejado", "preciso montar cadeira de escritorio",
+        "montagem de moveis comprados pela internet", "desmontar e montar guarda roupa",
+        "quero fixar um painel de tv", "parafusar suporte para estante",
+        "montagem de gavetas e armarios", "montar uma sapateira",
+        "instalar armario suspenso", "consertar dobradica de armario",
+    ],
+    "INFORMATICA": [
+        "meu computador nao liga", "preciso formatar meu notebook",
+        "quero instalar um programa no computador", "a internet wifi parou de funcionar",
+        "preciso de tecnico de informatica", "o notebook esta muito lento",
+        "arrumar impressora que nao imprime", "instalar roteador de internet",
+        "consertar tela do notebook", "preciso remover virus do pc",
+        "configurar rede de computadores", "quero trocar memoria do computador",
+        "atualizar o sistema do notebook", "computador esta travando muito",
+        "instalar drivers da impressora", "configurar uma rede wifi",
+        "recuperar dados de hd", "reparo de computador desktop",
+        "preciso arrumar meu teclado", "fazer manutencao de notebook",
+    ],
+}
+
+CATEGORIAS = tuple(EXEMPLOS)
