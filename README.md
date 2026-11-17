@@ -194,12 +194,15 @@ As categorias disponíveis são **hidráulica, elétrica, pintura, limpeza, mont
 ## 10. Entregáveis da disciplina
 
 - O [vídeo demonstrativo](video/Quem_Faz_Maker.mp4) e as fotos da montagem estão disponíveis neste repositório.
-- Completar a lista de integrantes e RMs antes da entrega.
 - Validar com o professor **antes da entrega** a adequação do assistente físico estacionário à exigência de *evoluir robô desenvolvido anteriormente* e qual seria o "sensor adicional" diante da ausência de um robô prévio.
 
 ### Integrantes
 
-> Substituir pelos nomes e RMs definitivos antes de subir ao GitHub. Este arquivo não inventa integrantes.
+- Enzo Vazquez Sartorelli — RM94618
+- Kaue Pastori Teixeira — RM98501
+- Nicolas Nogueira Boni — RM551965
+- Guilherme Brazioli — RM98237
+- Pedro Oliveira Valotto — RM551445
 
 ### ODS relacionados (a justificar na entrega)
 
