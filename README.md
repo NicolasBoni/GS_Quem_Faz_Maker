@@ -1,4 +1,4 @@
-# Quem Faz Smart Point — FIAP Global Solution 2026.2
+# Quem Faz Smart Point — FIAP Global Solution 2026
 
 Protótipo didático de dispositivo físico integrado a um backend local do **Quem Faz**, plataforma de conexão entre cidadãos que precisam de serviços e profissionais que buscam oportunidades em São Paulo.
 
@@ -11,8 +11,6 @@ Protótipo didático de dispositivo físico integrado a um backend local do **Qu
 ![Protótipo com o LCD aguardando presença](photos/img2_maker.jpeg)
 
 **Fluxo real deste repositório:** PIR detecta movimento → botão inicia gravação → microfone do computador captura voz → Vosk (modelo de IA para fala) transcreve → classificador de aprendizado de máquina classifica a solicitação → LCD exibe categoria → cidadão confirma com botão → API local registra pedido em SQLite → LCD mostra ID da solicitação.
-
-> **Limites honestos:** o dispositivo não fala sozinho nem tem reconhecimento de fala embarcado no Arduino. O computador executa os modelos. A API registra pedidos localmente; **não há distribuição, notificação ou contratação de profissionais reais**. A integração com o MVP definitivo do Quem Faz poderá substituir o endpoint local. O desafio da matéria cita explicitamente a *evolução de um robô anterior*: se nenhum robô foi construído antes, validar com o professor a aceitação deste protótipo de mesa antes da entrega.
 
 ## 0. Pré-requisitos
 
