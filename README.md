@@ -2,6 +2,14 @@
 
 Protótipo didático de dispositivo físico integrado a um backend local do **Quem Faz**, plataforma de conexão entre cidadãos que precisam de serviços e profissionais que buscam oportunidades em São Paulo.
 
+## Integrantes
+
+- Enzo Vazquez Sartorelli — RM94618
+- Kaue Pastori Teixeira — RM98501
+- Nicolas Nogueira Boni — RM551965
+- Guilherme Brazioli — RM98237
+- Pedro Oliveira Valotto — RM551445
+
 ## Demonstração e montagem
 
 [Assista ao vídeo demonstrativo do Quem Faz Smart Point](video/Quem_Faz_Maker.mp4)
@@ -190,23 +198,6 @@ As categorias disponíveis são **hidráulica, elétrica, pintura, limpeza, mont
 - Segurança: não expor o servidor publicamente; o protótipo não possui autenticação para uso real.
 - Privacidade: não falar dados pessoais durante os testes; não armazenar arquivos de áudio; transcrição escrita no SQLite local. Para uso público, desenvolver consentimento, autenticação, retenção e proteção de dados conforme LGPD.
 - Integração futura ao produto principal: alterar URL/contrato do backend para a API real do Quem Faz, com confirmação de usuário e autenticação apropriada. Só então será correto dizer que houve publicação real para profissionais.
-
-## 10. Entregáveis da disciplina
-
-- O [vídeo demonstrativo](video/Quem_Faz_Maker.mp4) e as fotos da montagem estão disponíveis neste repositório.
-- Validar com o professor **antes da entrega** a adequação do assistente físico estacionário à exigência de *evoluir robô desenvolvido anteriormente* e qual seria o "sensor adicional" diante da ausência de um robô prévio.
-
-### Integrantes
-
-- Enzo Vazquez Sartorelli — RM94618
-- Kaue Pastori Teixeira — RM98501
-- Nicolas Nogueira Boni — RM551965
-- Guilherme Brazioli — RM98237
-- Pedro Oliveira Valotto — RM551445
-
-### ODS relacionados (a justificar na entrega)
-
-**ODS 10 — Redução das desigualdades** e **ODS 11 — Cidades e comunidades sustentáveis**, como potencial de acesso inclusivo a serviços e oportunidades na cidade de São Paulo. Indicadores sugeridos: pedidos registrados, taxa de classificação correta, tempo médio para registrar pedido, percentual de solicitações que exigem repetição.
 
 ## Referências públicas
 
