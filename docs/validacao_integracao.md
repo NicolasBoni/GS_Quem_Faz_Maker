@@ -1,5 +1,9 @@
 # Diagnóstico e validação da integração — 15/11/2026
 
+Este documento descreve a correção de temporização da integração entre Arduino,
+ponte Python e API, os resultados dos testes automatizados e o procedimento de
+validação física.
+
 ## Erro de gravação encerrada imediatamente
 
 O `loop()` lia `agora = millis()` antes de `lerSerial()` e `lerBotao()`.
@@ -14,7 +18,7 @@ limites de tempo, protocolo serial e biblioteca hd44780_I2Cexp.
 O firmware precisa ser **carregado novamente pela Arduino IDE** para a correção
 ter efeito na placa física.
 
-## Outras correções
+## Comportamentos da integração
 
 - Ponte mantém estado próprio e ignora START/STOP repetidos. A captura só começa com START.
 - Banner `QUEM_FAZ_INICIADO` e nova presença descartam áudio e pedido pendente.
@@ -35,12 +39,11 @@ ter efeito na placa física.
   Descrições com apenas espaços são rejeitadas.
 - Sucesso serial exige ID inteiro positivo, status REGISTRADO e categoria esperada.
 - Interface exibe origem; o teste por texto identifica seus pedidos como `demo_texto`.
-- README e sketch auxiliar 02 foram alinhados ao LCD I²C real.
 
 ## Evidências automatizadas
 
-Os 9 testes originais passaram antes das modificações. A suíte ampliada teve
-**46 testes aprovados** (um aviso de descontinuação de httpx/Starlette, sem falhas) e cobre
+Na validação de 15/11/2026, a suíte teve **46 testes aprovados**, com um aviso
+de descontinuação de httpx/Starlette e sem falhas. Os testes cobrem
 API, classificação, áudio simulado, eventos duplicados, falhas de servidor,
 reinicialização, expiração, serial fragmentada, desconexão, migração de banco,
 concorrência e fluxo completo com API e SQLite temporário.
@@ -51,59 +54,19 @@ concorrência e fluxo completo com API e SQLite temporário.
 ```
 
 Testes de integração usam microfone e serial simulados. Não gravam no banco de
-uso do projeto e não comprovam funcionamento físico. Na validação de 15/11, o
-firmware principal e dois sketches auxiliares então existentes foram compilados
-para `arduino:avr:uno`; os auxiliares não estão na versão atual da pasta.
+uso do projeto e não comprovam funcionamento físico. O firmware principal foi
+compilado para `arduino:avr:uno` na validação de 15/11/2026.
 Compilação não equivale a teste na placa.
 O principal usa 10338 bytes de programa (32%) e 975 bytes de variáveis globais (47%).
 `pip check` não encontrou dependências quebradas; o modelo Vosk real carregou e
 retornou texto vazio para PCM de silêncio. O JavaScript passou em `node --check`.
-O banco original permaneceu com seu pedido existente, sem alterações nesta validação.
 
-## Arquivos alterados ou adicionados
+## Procedimento de validação física
 
-- `arduino/quem_faz_smart_point/quem_faz_smart_point.ino`: correção dos temporizadores.
-- `app/bridge.py`: estados, prazos, leitura serial, confirmação e chave idempotente.
-- `app/voice.py`: validação da captura, limites e liberação de recursos.
-- `app/api.py`: validação e persistência idempotente, com migração aditiva.
-- `app/demo.py`: origem específica para teste por texto.
-- `web/index.html`: exibição da origem na listagem.
-- `tests/test_api.py`: novos cenários de API, migração e concorrência.
-- `tests/test_bridge.py` e `tests/test_voice.py`: novos testes de integração e áudio.
-- `README.md` e `docs/validacao_integracao.md`: instruções e evidências.
-
-## Iniciar no Windows
-
-Feche a ponte Python antes de carregar o sketch principal. Na Arduino IDE,
-selecione Arduino Uno e a porta correta, verifique e carregue
-`arduino/quem_faz_smart_point/quem_faz_smart_point.ino`. Feche o Monitor Serial.
-
-Terminal 1, dentro da pasta do projeto:
-
-```powershell
-.\.venv\Scripts\python.exe -m uvicorn app.api:app --host 127.0.0.1 --port 8000
-```
-
-Terminal 2:
-
-```powershell
-.\.venv\Scripts\python.exe -m serial.tools.list_ports
-.\.venv\Scripts\python.exe -m app.bridge --porta COM3
-```
-
-Nesta inspeção, COM3 correspondia ao adaptador **Silicon Labs CP210x**. Confirme
-na Arduino IDE que é a porta da placa; COM1 e COM2 também estavam listadas.
-Abrir a serial pode reiniciar o UNO; aguarde os 30 s de aquecimento do PIR.
-Para escolher outro microfone:
-
-```powershell
-.\.venv\Scripts\python.exe -m app.voice
-.\.venv\Scripts\python.exe -m app.bridge --porta COM3 --mic 1
-```
-
-Substitua `1` pelo índice real de entrada; não abra duas pontes simultaneamente.
-
-## Roteiro físico obrigatório
+Prepare a placa, o ambiente Python, o backend e a ponte serial conforme o
+[README](../README.md). Utilize a porta e o microfone correspondentes ao
+computador em uso. Abrir a serial pode reiniciar o UNO; aguarde os 30 s de
+aquecimento previstos no firmware e a estabilização do PIR antes do teste.
 
 1. Abra `http://127.0.0.1:8000` e anote o último ID já existente.
 2. Após aquecimento, aproxime-se: LCD deve mostrar presença e pedir botão.
@@ -123,7 +86,7 @@ Substitua `1` pelo índice real de entrada; não abra duas pontes simultaneament
     liberar o microfone e permitir nova jornada após aquecimento.
 14. Desconecte o USB: a ponte deve encerrar com erro legível. Reconecte e execute-a novamente.
 
-## Limitações e entrega
+## Limitações e pendências técnicas
 
 - Ainda é necessária a validação física deste firmware corrigido com a ponte.
 - Transcrição e HTTP são síncronos. O PC só lê novos eventos após essas operações;
@@ -134,6 +97,3 @@ Substitua `1` pelo índice real de entrada; não abra duas pontes simultaneament
   iniciar uma nova gravação cria uma nova solicitação. Confira a interface antes de repetir.
 - Não há reconexão serial automática nem protocolo com identificação da sessão no firmware.
 - Dataset sintético pequeno e Vosk leve podem errar. Não há envio a profissionais reais.
-- Preencher nomes/RMs e link do vídeo; confirmar com professor a aceitação do assistente
-  estacionário, evolução de robô anterior e requisito de sensor adicional.
-- Preservar `.gitignore` para ambiente virtual, banco, modelos e áudio ao publicar.
