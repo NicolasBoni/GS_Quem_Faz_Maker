@@ -10,6 +10,111 @@ Protótipo didático de dispositivo físico integrado a um backend local do **Qu
 - Guilherme Brazioli — RM98237
 - Pedro Oliveira Valotto — RM551445
 
+## Ficha Técnica do MVP — Quem Faz
+
+### 1. Nome do produto
+
+**Quem Faz** — Plataforma de conexão entre contratantes e prestadores de serviços.
+
+Módulo desenvolvido para a disciplina de Project Maker-Lab (IoT): **Quem Faz Smart Point**.
+
+### 2. Cidadão e território
+
+Moradores, empresas e profissionais prestadores de serviços da cidade de São Paulo (SP).
+
+### 3. Problema, em uma frase
+
+A dificuldade de encontrar profissionais adequados e confiáveis para a contratação de serviços, enquanto prestadores enfrentam obstáculos para divulgar suas habilidades e conquistar novos clientes.
+
+### 4. Proposta de valor
+
+O Quem Faz propõe uma plataforma que aproxima contratantes e prestadores de serviços por meio da exploração de categorias profissionais e da publicação de solicitações. Os usuários poderão consultar perfis, solicitar propostas e avaliar experiências após a conclusão dos serviços.
+
+No módulo Maker-Lab, o **Quem Faz Smart Point** demonstra uma alternativa de interação por voz para o registro de solicitações. Utilizando Arduino, sensores e inteligência artificial, o cidadão pode informar o serviço desejado verbalmente, visualizar a categoria identificada e confirmar o registro. A solução busca tornar a interação mais simples e acessível.
+
+### 5. Arquitetura: componentes
+
+- **Hardware:** Arduino UNO R3, sensor de movimento PIR, botão físico, display LCD 16x2 com interface I²C e conexão USB.
+- **Captura de voz:** microfone do computador, acionado mediante interação com o botão físico.
+- **Reconhecimento de fala:** Vosk, responsável pela conversão do áudio em texto.
+- **Classificação inteligente:** modelo de aprendizado de máquina com TF-IDF e regressão logística, implementado com scikit-learn.
+- **Backend:** Python, FastAPI e Uvicorn para processamento e registro das solicitações.
+- **Banco de dados:** SQLite para armazenamento local dos pedidos.
+- **Interface:** painel web local para consulta das solicitações registradas.
+- **Comunicação:** conexão serial USB entre Arduino e computador, utilizando uma ponte desenvolvida em Python.
+
+**Fluxo de funcionamento:**
+
+Sensor PIR detecta movimento → cidadão pressiona o botão → microfone captura a solicitação → Vosk transcreve a fala → modelo de IA identifica a categoria → LCD apresenta o resultado → cidadão confirma → API FastAPI registra o pedido no SQLite → LCD apresenta o identificador da solicitação.
+
+### 6. Fontes de dados
+
+- **Entrada física:** sinais do sensor PIR e acionamentos do botão conectado ao Arduino.
+- **Entrada de áudio:** solicitações faladas pelo usuário, capturadas pelo microfone do computador.
+- **Reconhecimento de fala:** modelo `vosk-model-small-pt-0.3`, utilizado localmente para transcrição em português.
+- **Dados de treinamento:** conjunto de frases didáticas e sintéticas definido em `app/dataset.py`, utilizado para treinar o classificador de categorias.
+- **Dados gerados:** transcrição da solicitação, categoria identificada, confiança da classificação e informações de registro.
+- **Armazenamento:** banco SQLite local em `data/solicitacoes.sqlite3`.
+
+O protótipo trabalha com seis categorias: **hidráulica, elétrica, pintura, limpeza, montagem e informática**.
+
+O áudio não é armazenado permanentemente. Após o processamento, os dados textuais da solicitação são registrados localmente.
+
+### 7. Modelos de IA utilizados
+
+- **ChatGPT Codex:** ferramenta de apoio ao desenvolvimento, implementação, revisão e organização do código do projeto; não é o modelo responsável pelas decisões durante a operação do Smart Point.
+- **Vosk:** reconhecimento automático de fala para transcrever solicitações realizadas por voz, utilizando o modelo `vosk-model-small-pt-0.3` com processamento local.
+- **TF-IDF + Regressão Logística (scikit-learn):** modelo de aprendizado de máquina que analisa o texto transcrito e identifica a categoria de serviço mais adequada.
+
+O Vosk realiza a transcrição, enquanto o classificador identifica a categoria. O cidadão precisa confirmar a classificação antes de registrar a solicitação.
+
+### 8. URL do MVP e repositório
+
+- **Repositório GitHub Maker-Lab:** https://github.com/NicolasBoni/GS_Quem_Faz_Maker/edit/main/README.md.
+- **MVP local:** http://127.0.0.1:8000
+- **Verificação da API:** http://127.0.0.1:8000/health
+- **Vídeo demonstrativo:** [Quem Faz Smart Point](video/Quem_Faz_Maker.mp4), arquivo disponibilizado no próprio repositório.
+
+O MVP funciona localmente em ambiente Windows, utilizando Arduino conectado ao computador, Python e os modelos de reconhecimento de fala e classificação. O endereço `127.0.0.1` não representa uma hospedagem pública.
+
+### 9. Indicadores de impacto
+
+O protótipo demonstra as seguintes funcionalidades documentadas:
+
+- Detecção de movimento por sensor PIR para iniciar a interação.
+- Captura de solicitações por voz mediante acionamento do botão.
+- Transcrição de fala em português utilizando Vosk.
+- Classificação automática das solicitações em **seis categorias de serviços**.
+- Apresentação da categoria identificada no display LCD.
+- Confirmação humana antes do registro de cada solicitação.
+- Armazenamento dos pedidos confirmados no banco SQLite.
+- Visualização das solicitações por meio de uma interface web local.
+- Tratamento de situações de baixa confiança, transcrição vazia e falhas de comunicação.
+
+**Indicadores de impacto esperados:** maior facilidade para registrar solicitações por voz, redução da necessidade de digitação, ampliação das possibilidades de acesso à plataforma e melhoria da organização e classificação inicial dos pedidos.
+
+Esses resultados correspondem às funcionalidades documentadas na prova de conceito. Ainda não foram medidas taxas de precisão em uso real, redução de tempo de atendimento ou indicadores de impacto social com cidadãos.
+
+### 10. ODS conectados
+
+**ODS 9 — Indústria, Inovação e Infraestrutura**
+
+O Quem Faz contribui para esse objetivo ao propor uma solução tecnológica que digitaliza processos e facilita a conexão entre profissionais e contratantes. No Maker-Lab, a integração entre Arduino, sensores, reconhecimento de voz e aprendizado de máquina demonstra o uso de tecnologias inovadoras para simplificar o registro e a organização de solicitações de serviços.
+
+**ODS 10 — Redução das Desigualdades (Meta 10.2)**
+
+O Quem Faz busca ampliar as oportunidades de trabalho e geração de renda para profissionais autônomos e informais, inclusive aqueles que atuam em bairros periféricos de São Paulo. A plataforma oferece um espaço para que esses profissionais divulguem suas habilidades, encontrem novos clientes e construam sua reputação por meio de avaliações vinculadas aos serviços realizados.
+
+No módulo Quem Faz Smart Point, a interação por voz representa uma alternativa para facilitar o registro de solicitações, buscando tornar o acesso à plataforma mais inclusivo.
+
+**ODS 11 — Cidades e Comunidades Sustentáveis**
+
+O Quem Faz se conecta a esse objetivo ao propor melhorias no acesso a serviços locais na cidade de São Paulo, facilitando o encontro entre moradores, empresas e profissionais da própria comunidade. O Smart Point acrescenta uma possibilidade de interação por voz, buscando tornar o registro de solicitações mais simples e acessível.
+
+As contribuições aos ODS representam os objetivos e benefícios potenciais da solução, ainda não resultados sociais comprovados em operação real.
+
+---
+
 ## Demonstração e montagem
 
 [Assista ao vídeo demonstrativo do Quem Faz Smart Point](video/Quem_Faz_Maker.mp4)
@@ -199,8 +304,4 @@ As categorias disponíveis são **hidráulica, elétrica, pintura, limpeza, mont
 - Privacidade: não falar dados pessoais durante os testes; não armazenar arquivos de áudio; transcrição escrita no SQLite local. Para uso público, desenvolver consentimento, autenticação, retenção e proteção de dados conforme LGPD.
 - Integração futura ao produto principal: alterar URL/contrato do backend para a API real do Quem Faz, com confirmação de usuário e autenticação apropriada. Só então será correto dizer que houve publicação real para profissionais.
 
-## Referências públicas
 
-- [Biblioteca hd44780 — Bill Perry](https://github.com/duinoWitchery/hd44780)
-- [Vosk — modelos para português](https://alphacephei.com/vosk/models)
-- [PySerial — primeiros passos](https://www.pyserial.org/docs/getting-started)
